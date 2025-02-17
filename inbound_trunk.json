@@ -1,0 +1,8 @@
+{
+  "trunk": {
+    "name": "Demo inbound trunk",
+    "numbers": ["+12294944550"],
+    "auth_username":"sei-ai-test",
+    "auth_password":"Seiaidemo@1234"
+  }
+}

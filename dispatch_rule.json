@@ -1,0 +1,8 @@
+{
+  "rule": {
+    "dispatchRuleCallee": {
+      "roomPrefix": "number-",
+      "randomize": false
+    }
+  }
+}
