@@ -5,10 +5,11 @@
 This project is designed to create a voicebot that leverages various technologies to provide assistance with Wise financial transactions and payments. The voicebot integrates with LiveKit for real-time communication, Deepgram for speech-to-text, OpenAI for language models, and Cartesia for text-to-speech. The system also includes scripts to crawl the data from websites and store the same into ChromaDB, manage inbound SIP trunks, dispatch rules, and handle FAQs using vector embeddings.
 
 ### Sample Video
-<video width="640" height="360" controls>
-  <source src="https://github.com/parshvadaftari/Sei-AI/raw/main/assets/sample_video.mp4" type="video/mp4">
-  Your browser does not support the video tag.
-</video>
+
+https://github.com/user-attachments/assets/c3598476-71b2-445b-bc8e-5a73580e7e2c
+
+
+
 
 ## Setup
 
