@@ -42,20 +42,6 @@ async def entrypoint(ctx: JobContext):
             await livekit_api.room.delete_room(api.DeleteRoomRequest(
                 room=ctx.job.room.name,
             ))
-        # participant.disconnect_reason
-        # await livekit_api.room.remove_participant(
-        #     api.RoomParticipantIdentity(
-        #         room=room_name, identity=participant_identity
-        #     )
-        # )
-        
-        # await agent.
-        # ctx.room.disconnect
-        # ctx.room.
-        # ctx.shutdown("I'm sorry I don't have an answer for that. Let me transfer you to a human agent.")
-
-    # participant = await ctx.wait_for_participant()
-    # logger.info(f"starting voice assistant for participant {participant.identity}")
 
     initial_ctx = llm.ChatContext().append(
         role="system",

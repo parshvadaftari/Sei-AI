@@ -8,35 +8,35 @@ from langchain_openai import OpenAIEmbeddings
 from langchain_chroma import Chroma
 from langchain_text_splitters import RecursiveCharacterTextSplitter
 
-# Define function to clean extracted text
+# Function to clean extracted text
 def clean_text(text):
-    text = re.sub(r'<[^>]*>', '', text)  # Remove HTML tags
-    text = re.sub(r'#+\s', '', text)  # Headers
-    text = re.sub(r'\[([^\]]+)\]\([^)]+\)', r'\1', text)  # Links
-    text = re.sub(r'!\[.*?\]\(.*?\)', '', text)  # Images
-    text = re.sub(r'(\*\*|__)(.*?)\1', r'\2', text)  # Bold, italics
-    text = re.sub(r'http\S+|www\.\S+', '', text)  # Remove URLs
-    return re.sub(r'\s+', ' ', text).strip()  # Remove extra whitespace
+    text = re.sub(r'<[^>]*>', '', text)
+    text = re.sub(r'#+\s', '', text)
+    text = re.sub(r'\[([^\]]+)\]\([^)]+\)', r'\1', text)
+    text = re.sub(r'!\[.*?\]\(.*?\)', '', text)
+    text = re.sub(r'(\*\*|__)(.*?)\1', r'\2', text)
+    text = re.sub(r'http\S+|www\.\S+', '', text)
+    return re.sub(r'\s+', ' ', text).strip()
 
 # Function to extract concern from URL
 def extract_concern_from_url(url):
-    concern = url.rstrip("/").split("/")[-1]  # Get the last part of the URL
-    return concern.replace("-", " ").capitalize()  # Replace hyphens with spaces and capitalize
+    concern = url.rstrip("/").split("/")[-1]
+    return concern.replace("-", " ").capitalize()
 
 # Function to save text embeddings to ChromaDB
 def save_to_chroma(chunks, vector_store, concern):
     embeddings_model = OpenAIEmbeddings()
     
     for chunk in chunks:
-        doc_id = str(uuid.uuid4())  # Unique ID for each chunk
+        doc_id = str(uuid.uuid4())
         metadata = {
             "source": concern,
         }
 
-        embedding = embeddings_model.embed_documents([chunk])  # Generate embeddings
+        embedding = embeddings_model.embed_documents([chunk])
         vector_store.add_texts([chunk], ids=[doc_id], metadatas=[metadata], embeddings=embedding)
 
-# Function to split text into smaller chunks
+# Function to split text into chunks
 def split_text(text):
     text_splitter = RecursiveCharacterTextSplitter(
         chunk_size=1000,
@@ -74,17 +74,13 @@ async def main():
                 continue
 
             cleaned_text = clean_text(result.markdown)
-            # cleaned_text = extract_info(cleaned_text)
 
-            # Extract concern from URL
             concern = extract_concern_from_url(url)
 
-            # Split text into chunks
             text_chunks = split_text(cleaned_text)
 
             print(f"Extracted {len(text_chunks)} chunks from {concern}")
 
-            # Save chunks with metadata (concern) to vector store
             save_to_chroma(text_chunks, vector_store, concern)
 
 if __name__ == "__main__":

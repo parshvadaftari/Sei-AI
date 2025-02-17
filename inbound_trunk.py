@@ -8,8 +8,6 @@ async def main():
   trunk = api.SIPInboundTrunkInfo(
     name = "Sei AI Twilio trunk",
     numbers=["+12294944550"],
-    # auth_username="sei-ai-test",
-    # auth_password="Seiaidemo@1234",
     krisp_enabled = True,
   )
 
